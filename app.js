@@ -72,7 +72,7 @@ function renderFooter() {
           <div>
             <h3 class="footer-heading">产品</h3>
             <ul class="footer-list">
-              <li><a href="./product.html">产品与价格</a></li>
+              <li><a href="./product.html">产品功能</a></li>
               <li><a href="./download.html">下载客户端</a></li>
               <li><a href="./changelog.html">更新日志</a></li>
               <li><a href="./about.html">关于我们</a></li>
@@ -185,21 +185,23 @@ function homePage() {
           <span class="muted">选图搭子 1.0 现已发布</span>
         </div>
 
-        <p class="home-kicker reveal">Cullmate</p>
+        <p class="home-kicker reveal">CULLMATE</p>
 
-        <h1 class="home-title reveal">
-          <span class="home-glow" aria-hidden="true"></span>
-          <span class="title-text">选图 从未如此智能</span>
-        </h1>
+        <div class="home-hero-media reveal" aria-hidden="true">
+          <img src="./assets/hero-gemini.png" alt="" />
+        </div>
 
-        <p class="home-copy reveal">
-          强大的本地 AI 引擎，快速剔除<span class="copy-underline">废片、闭眼与重复底片</span>。所有处理均在本地完成，无需上传云端，为您提供极致的隐私保护与绝对的安全。将繁琐的筛选交给机器，把时间留给创作。
-        </p>
+        <div class="home-copy-block reveal">
+          <h1 class="home-title">
+            <span class="home-glow" aria-hidden="true"></span>
+            <span class="title-text">选图 从未如此智能</span>
+          </h1>
 
-        <div class="home-cta reveal">
-          <a class="btn btn-primary btn-gradient" href="./product.html">
-            <span>立即下载 ${icon('arrow-right')}</span>
-          </a>
+          <div class="home-cta">
+            <a class="btn btn-primary btn-gradient" href="./product.html">
+              <span>立即下载 ${icon('arrow-right')}</span>
+            </a>
+          </div>
         </div>
       </div>
     </section>
@@ -207,15 +209,6 @@ function homePage() {
 }
 
 function productPage() {
-  const mockupCells = [
-    { src: 'https://picsum.photos/seed/cull0/400/300' },
-    { src: 'https://picsum.photos/seed/cull1/400/300', bad: true, label: '闭眼' },
-    { src: 'https://picsum.photos/seed/cull2/400/300' },
-    { src: 'https://picsum.photos/seed/cull3/400/300' },
-    { src: 'https://picsum.photos/seed/cull4/400/300', good: true, label: 'Best' },
-    { src: 'https://picsum.photos/seed/cull5/400/300' },
-  ];
-
   return `
     <section class="section product-hero">
       <div class="container">
@@ -226,46 +219,23 @@ function productPage() {
 
     <section class="section mockup-wrap">
       <div class="container">
-        <div class="mockup reveal">
-          <div class="mockup-header">
+        <div class="product-video-card reveal">
+          <div class="product-video-header">
             <span class="window-dot red"></span>
             <span class="window-dot yellow"></span>
             <span class="window-dot green"></span>
-            <div class="mockup-title">${icon('scan')} AI 分析中 - 428/1024</div>
+            <div class="product-video-title">${icon('video')} 完整操作流程视频占位</div>
           </div>
 
-          <div class="mockup-body">
-            <aside class="mockup-sidebar">
-              <div class="stub"></div>
-              <div class="stub" style="width:75%"></div>
-              <div class="stub" style="width:86%"></div>
-              <div class="stat">
-                <small>已剔除废片</small>
-                <strong>156</strong>
+          <div class="product-video-body">
+            <div class="product-video-placeholder">
+              <div class="product-video-icon">${icon('play-circle')}</div>
+              <h3>这里放完整操作流程视频</h3>
+              <p>先保留视频卡片的位置，等你的视频做完后直接替换成 <code>assets/videos/product-flow.mp4</code> 即可。</p>
+              <div class="product-video-meta">
+                <span>16:9 视频卡片</span>
+                <span>自动播放 / 静音 / 循环</span>
               </div>
-            </aside>
-
-            <div class="mockup-grid">
-              <div class="scan-line" aria-hidden="true"></div>
-              ${mockupCells
-                .map(
-                  (cell, index) => `
-                    <div class="photo-cell ${cell.bad ? 'bad' : cell.good ? 'good' : ''}">
-                      <img src="${cell.src}" alt="样片 ${index + 1}" />
-                      ${
-                        cell.bad
-                          ? `<div class="overlay"><span class="overlay-badge">${icon('eye')} <span>${cell.label}</span></span></div>`
-                          : ''
-                      }
-                      ${
-                        cell.good
-                          ? `<div class="overlay"><span class="overlay-badge green">${icon('sparkles')} <span>${cell.label}</span></span></div>`
-                          : ''
-                      }
-                    </div>
-                  `,
-                )
-                .join('')}
             </div>
           </div>
         </div>
@@ -280,7 +250,7 @@ function productPage() {
           eyebrowClass: 'blue',
           title: 'AI 智能选图，自动剔除废片',
           desc: '告别手动筛选的繁琐。选图搭子 强大的本地 AI 引擎能够精准识别照片中的瑕疵，包括闭眼、失焦、严重模糊以及曝光异常。一键标记废片，让您只专注于最好的作品。',
-          bullets: ['精准识别闭眼与微表情', '自动检测对焦准确度', '智能判断曝光问题'],
+          bullets: ['精准识别闭眼与微表情'],
           media: demoVideo('AI 智能选图演示视频', 'play-circle', '', './assets/videos/ai-select.mp4'),
         })}
 
@@ -299,7 +269,7 @@ function productPage() {
           eyebrowClass: 'green',
           title: '人脸放大对比',
           desc: '拍摄合影时，最难判断的往往是关键人物的眼神与表情。使用人脸放大功能，可将重要人脸单独放大显示，在多张照片间快速切换观察细节，更高效地完成筛选。',
-          bullets: ['重要人脸单独放大显示', '快速观察表情与闭眼细节', '支持快捷键快速切换'],
+          bullets: ['重要人脸单独放大显示', '快速观察表情与闭眼细节'],
           media: demoVideo('人脸放大演示视频', 'play-circle', '', './assets/videos/face-zoom.mp4'),
         })}
 
@@ -346,44 +316,37 @@ function productPage() {
       <div class="pricing-glow" aria-hidden="true"></div>
       <div class="container">
         <div class="section-heading">
-          <h2>选择适合您的方案</h2>
-          <p class="page-lead">买断制授权，一次付费，终身使用 1.0 版本。</p>
+          <h2>版本介绍</h2>
+          <p class="page-lead">官网仅展示软件功能与下载入口。</p>
         </div>
 
         <div class="pricing-grid">
           <article class="pricing-card featured reveal">
-            <div class="ribbon">限时特惠</div>
-            <h3>1.0 版本买断</h3>
-            <p>适合独立摄影师，享受首发特惠折扣。</p>
-            <div class="price-row">
-              <span class="price">¥199</span>
-              <span class="strike">原价 ¥399</span>
+            <div class="ribbon">版本介绍</div>
+            <h3>1.0 版本</h3>
+            <p>适合独立摄影师，先下载体验完整功能。</p>
+            <div class="price-row" style="display:flex;align-items:flex-end;gap:16px;flex-wrap:wrap;margin:14px 0 10px">
+              <span class="price" style="font-size:3.6rem;line-height:1;font-weight:900;letter-spacing:-.04em">本地软件</span>
             </div>
             <ul class="bullets">
               <li>${icon('check-circle-2')}<span>终身使用 1.0 版本所有功能</span></li>
               <li>${icon('check-circle-2')}<span>包含 AI 智能选图与分组</span></li>
               <li>${icon('check-circle-2')}<span>免费获取 1.0 后续小版本更新</span></li>
-              <li>${icon('check-circle-2')}<span>后续 2.0/3.0 大版本补差价升级</span></li>
               <li>${icon('check-circle-2')}<span>支持单设备授权使用</span></li>
             </ul>
             <div style="display:grid;gap:12px">
-              <a class="btn btn-primary" href="./checkout.html">立即购买 ${icon('arrow-right')}</a>
-              <a class="btn btn-secondary" href="./download.html">先下载客户端</a>
+              <a class="btn btn-primary" href="./download.html">下载客户端 ${icon('arrow-right')}</a>
             </div>
-            <p style="text-align:center;margin-top:16px">官网提供完整收银台流程，购买成功后可在客户端内激活授权。</p>
+            <p style="text-align:center;margin-top:16px">网站仅提供软件下载与软件介绍。</p>
           </article>
 
           <article class="pricing-card soft reveal">
-            <h3>工作室版本</h3>
-            <p>专为摄影团队打造，支持多设备协同。</p>
-            <div class="price-row">
-              <span class="price" style="font-size:2.8rem">即将推出</span>
-            </div>
+            <h3>即将加入更多功能</h3>
+            <p>我们持续迭代选图、分组和导出效率相关能力。</p>
             <ul class="bullets">
-              <li style="color:#64748b">${icon('check-circle-2')}<span>包含 1.0 版本所有功能</span></li>
-              <li style="color:#64748b">${icon('check-circle-2')}<span>支持多设备同时在线</span></li>
-              <li style="color:#64748b">${icon('check-circle-2')}<span>团队素材库共享与协同</span></li>
-              <li style="color:#64748b">${icon('check-circle-2')}<span>专属企业级技术支持</span></li>
+              <li style="color:#64748b">${icon('check-circle-2')}<span>更快的局部预览与解析性能</span></li>
+              <li style="color:#64748b">${icon('check-circle-2')}<span>更丰富的筛选辅助规则</span></li>
+              <li style="color:#64748b">${icon('check-circle-2')}<span>更顺滑的导出与工作流适配</span></li>
             </ul>
             <button class="btn btn-disabled" disabled>敬请期待</button>
           </article>
@@ -400,7 +363,7 @@ function downloadPage() {
       <div class="container">
         <div class="section-heading">
           <h1 class="page-heading reveal">开始您的高效选图之旅。</h1>
-          <p class="page-lead reveal" style="max-width:760px;margin:0 auto">下载 选图搭子 客户端，享受 7 天全功能免费试用。无需绑定信用卡，下载安装后在软件内直接注册登录即可激活。</p>
+          <p class="page-lead reveal" style="max-width:760px;margin:0 auto">下载 选图搭子 客户端，安装后即可体验核心选图能力与本地处理流程。</p>
         </div>
 
         <div class="download-grid">
@@ -457,7 +420,7 @@ function downloadPage() {
         </div>
 
         <div class="howto-card reveal">
-          <h3>如何开始试用或购买？</h3>
+          <h3>如何开始使用？</h3>
           <div class="steps">
             <div class="step">
               <div class="circle" style="background:#dbeafe;color:#2563eb">${icon('download')}</div>
@@ -466,13 +429,13 @@ function downloadPage() {
             </div>
             <div class="step">
               <div class="circle" style="background:#f3e8ff;color:#7c3aed">${icon('key')}</div>
-              <h4>2. 软件内登录</h4>
-              <p>打开 选图搭子，使用手机号注册并登录账号。</p>
+              <h4>2. 打开软件</h4>
+              <p>启动 选图搭子，导入照片后即可开始使用核心功能。</p>
             </div>
             <div class="step">
               <div class="circle" style="background:#fce7f3;color:#db2777">${icon('sparkles')}</div>
-              <h4>3. 激活与付费</h4>
-              <p>登录后自动开启 7 天免费试用。试用满意后，可在软件内直接购买买断版。</p>
+              <h4>3. 开始选图</h4>
+              <p>使用 AI 归组、废片识别和 Best 推荐，快速完成初筛。</p>
             </div>
           </div>
         </div>
@@ -716,12 +679,12 @@ function legalPage() {
 
               <h3>1. 软件定位与服务内容</h3>
               <ul>
-                <li><strong>软件定位：</strong>选图搭子 1.0 是一款专为婚礼摄影师、人像摄影师及高产出职业摄影从业者设计的本地 AI 选图工具。本软件聚焦于“选图初筛效率”，旨在通过本地工作流帮助用户降低海量素材的筛查压力。当前版本支持 macOS（Apple Silicon M1/M2/M3 及 Intel 芯片，macOS 12.0 或更高版本），Windows 版本暂未开放。</li>
-                <li><strong>非全流程平台：</strong>选图搭子 1.0 本质上是一款效率型辅助工具，并非全流程修图 SaaS 或完整经营后台。当前版本不包含复杂人像分类体系、情绪/场景/动作分类等功能。</li>
+                <li><strong>软件定位：</strong>选图搭子是一款专为摄影师设计的本地 AI 选图工具。本软件聚焦于“选图初筛效率”，旨在通过本地工作流帮助用户降低海量素材的筛查压力。当前版本支持 macOS（Apple Silicon M1/M2/M3 及 Intel 芯片，macOS 12.0 或更高版本），Windows 版本暂未开放。</li>
+                <li><strong>非全流程平台：</strong>选图搭子本质上是一款效率型辅助工具，并非全流程修图 SaaS 或完整经营后台。当前版本不包含复杂人像分类体系、情绪/场景/动作分类等功能。</li>
               </ul>
 
               <h3>2. 核心功能与 AI 辅助判断特别声明</h3>
-              <p><strong>核心功能：</strong>选图搭子 1.0 提供以下核心初筛辅助功能：</p>
+              <p><strong>核心功能：</strong>选图搭子提供以下核心初筛辅助功能：</p>
               <ul>
                 <li><strong>相似内容识别与归组：</strong>对导入照片进行相似内容识别，将明显重复或连续相似的照片归组。</li>
                 <li><strong>重复组内 Best 选择：</strong>在重复照片组中，辅助推荐相对更优的照片。</li>
@@ -804,166 +767,6 @@ function changelogPage() {
   `;
 }
 
-function checkoutPage() {
-  return `
-    <section class="content-page">
-      <div class="container">
-        <div class="checkout-top reveal">
-          <div>
-            <div class="crumb">${icon('shield-check')} <span>支付宝电脑网站支付</span></div>
-            <h1 class="checkout-heading">收银台</h1>
-          </div>
-          <a href="./product.html" style="color:#64748b">返回产品页</a>
-        </div>
-
-        <div class="checkout-grid">
-          <div>
-            <article class="content-card checkout-order reveal">
-              <h2>订单概览</h2>
-              <div class="order-meta">
-                <span>订单号：XTDZ202604100001</span>
-                <span>下单时间：2026-04-10 11:30</span>
-                <span>商户名称：选图搭子官方商城</span>
-              </div>
-              <div class="order-row">
-                <div>
-                  <h3>选图搭子 1.0 版本买断</h3>
-                  <p>单设备永久授权，包含 1.x 版本免费更新</p>
-                </div>
-                <div class="order-price">
-                  <div class="now">¥199.00</div>
-                  <div class="old">原价 ¥399.00</div>
-                </div>
-              </div>
-              <div class="pay-total">
-                <span style="color:#475569;font-weight:600">应付总额</span>
-                <span class="amount">¥199.00</span>
-              </div>
-            </article>
-
-            <article class="content-card checkout-items reveal" style="margin-top:24px">
-              <h2>商品信息</h2>
-              <div class="checkout-table">
-                <div class="checkout-table-head">
-                  <span>商品名称</span>
-                  <span>授权类型</span>
-                  <span>数量</span>
-                  <span>价格</span>
-                </div>
-                <div class="checkout-table-row">
-                  <div>
-                    <strong>选图搭子 1.0 版本买断</strong>
-                    <p>本地 AI 选图工具，适用于摄影师初筛工作流</p>
-                  </div>
-                  <span>单设备永久授权</span>
-                  <span>1</span>
-                  <strong>¥199.00</strong>
-                </div>
-              </div>
-            </article>
-
-            <article class="content-card checkout-form reveal" style="margin-top:24px">
-              <h2>购买信息</h2>
-              <div class="checkout-info-list">
-                <div><span>手机号</span><strong>13800138000</strong></div>
-                <div><span>购买人</span><strong>郭先生</strong></div>
-                <div><span>购买版本</span><strong>1.0 版本买断</strong></div>
-                <div><span>授权设备数</span><strong>1 台设备</strong></div>
-                <div><span>售后说明</span><strong>支持 1.x 版本持续更新</strong></div>
-              </div>
-            </article>
-
-            <article class="content-card checkout-pay reveal" style="margin-top:24px">
-              <h2>支付方式</h2>
-              <div class="payment-method-static">
-                <div class="chip">支</div>
-                <div>
-                  <strong>支付宝电脑网站支付</strong>
-                  <p>当前订单默认使用支付宝完成付款</p>
-                </div>
-              </div>
-              <div class="checkout-note">
-                <p>提交订单后将进入支付宝收银台完成付款，支付成功后自动返回订单结果页。</p>
-              </div>
-            </article>
-          </div>
-
-          <aside class="sticky-card">
-            <article class="content-card reveal checkout-side-card">
-              <div class="side-badge">支付宝收银台</div>
-              <h2 style="margin:0 0 12px;font-size:1.15rem">使用 <span id="payment-method-label">支付宝</span> 完成付款</h2>
-              <p class="side-copy">请核对订单金额与商品信息，确认无误后提交订单并前往支付宝完成付款。</p>
-              <div class="qr-box">
-                ${icon('qr-code')}
-                <div class="overlay"><span style="font-size:.9rem;font-weight:600;color:#475569">支付二维码 / 跳转入口</span></div>
-              </div>
-              <div class="side-summary">
-                <div><span>商品总额</span><strong>¥399.00</strong></div>
-                <div><span>限时优惠</span><strong>- ¥200.00</strong></div>
-                <div><span>商品名称</span><strong>选图搭子 1.0 版本买断</strong></div>
-                <div><span>支付状态</span><strong class="status-waiting">待支付</strong></div>
-                <div><span>应付金额</span><strong class="pay-highlight">¥199.00</strong></div>
-              </div>
-              <a class="btn btn-primary" href="./pay-success.html">提交订单并前往支付 ${icon('arrow-right')}</a>
-              <p style="margin:14px 0 22px;color:#64748b;font-size:.93rem;line-height:1.75">
-                支付成功后将自动返回结果页，并展示订单号、支付金额和支付状态。
-              </p>
-              <div class="security-chip">${icon('shield-check')} 安全支付保障</div>
-            </article>
-          </aside>
-        </div>
-      </div>
-    </section>
-  `;
-}
-
-function paySuccessPage() {
-  return `
-    <section class="content-page">
-      <div class="container">
-        <div class="payment-result reveal">
-          <div class="result-icon">${icon('badge-check')}</div>
-          <p class="result-kicker">支付结果页</p>
-          <h1>支付成功，订单已完成</h1>
-          <p class="result-copy">您已成功购买 选图搭子 1.0 版本买断。授权将在客户端内同步生效，后续可使用购买手机号登录并激活设备。</p>
-
-          <div class="result-grid">
-            <div class="result-item">
-              <span>订单号</span>
-              <strong>XTDZ202604100001</strong>
-            </div>
-            <div class="result-item">
-              <span>支付方式</span>
-              <strong>支付宝电脑网站支付</strong>
-            </div>
-            <div class="result-item">
-              <span>支付金额</span>
-              <strong>¥199.00</strong>
-            </div>
-            <div class="result-item">
-              <span>支付状态</span>
-              <strong class="status-success">支付成功</strong>
-            </div>
-            <div class="result-item">
-              <span>购买人手机号</span>
-              <strong>13800138000</strong>
-            </div>
-            <div class="result-item">
-              <span>支付时间</span>
-              <strong>2026-04-10 11:35</strong>
-            </div>
-          </div>
-
-          <div class="result-actions">
-            <a class="btn btn-primary" href="./download.html">前往下载客户端</a>
-            <a class="btn btn-secondary" href="./product.html">返回产品页</a>
-          </div>
-        </div>
-      </div>
-    </section>
-  `;
-}
-
 const PAGES = {
   home: homePage,
   product: productPage,
@@ -973,8 +776,6 @@ const PAGES = {
   contact: contactPage,
   legal: legalPage,
   changelog: changelogPage,
-  checkout: checkoutPage,
-  'pay-success': paySuccessPage,
 };
 
 function currentPageKey() {
@@ -991,8 +792,6 @@ function currentPageKey() {
   if (path.endsWith('/contact.html')) return 'contact';
   if (path.endsWith('/legal.html')) return 'legal';
   if (path.endsWith('/changelog.html')) return 'changelog';
-  if (path.endsWith('/checkout.html')) return 'checkout';
-  if (path.endsWith('/pay-success.html')) return 'pay-success';
   return 'home';
 }
 
@@ -1061,10 +860,6 @@ function setupInteractions(page) {
 
   if (page === 'download') {
     setupDownload();
-  }
-
-  if (page === 'checkout') {
-    setupCheckout();
   }
 
   if (page === 'legal') {
@@ -1194,29 +989,6 @@ function setupDownload() {
       console.log(`Downloading ${platform} version...`);
     });
   });
-}
-
-function setupCheckout() {
-  const options = document.querySelectorAll('[data-payment-option]');
-  const label = document.getElementById('payment-method-label');
-
-  const setMethod = (method) => {
-    options.forEach((option) => {
-      const active = option.getAttribute('data-payment-option') === method;
-      option.classList.toggle('active', active);
-    });
-    if (label) {
-      label.textContent = method === 'alipay' ? '支付宝' : '微信';
-    }
-  };
-
-  options.forEach((option) => {
-    option.addEventListener('click', () => {
-      setMethod(option.getAttribute('data-payment-option') || 'alipay');
-    });
-  });
-
-  setMethod('alipay');
 }
 
 function setupLegal() {
