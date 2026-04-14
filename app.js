@@ -65,7 +65,7 @@ function renderFooter() {
             <div class="footer-icons">
               <a href="#" aria-label="WeChat">${footerIcon('message-circle')}</a>
               <a href="#" aria-label="Twitter">${footerIcon('twitter')}</a>
-              <a href="mailto:support@xuantudazi.com" aria-label="Email">${footerIcon('mail')}</a>
+              <a href="mailto:yunongguo9@gmail.com" aria-label="Email">${footerIcon('mail')}</a>
             </div>
           </div>
 
@@ -93,12 +93,7 @@ function renderFooter() {
         <div class="footer-bottom">
           <p class="footer-copy">© ${year} 选图搭子. All rights reserved.</p>
           <div class="footer-meta">
-            <a href="https://beian.miit.gov.cn/" target="_blank" rel="noreferrer">京ICP备XXXXXXXX号-1</a>
-            <span class="hide-mobile">|</span>
-            <a href="#" class="footer-record">
-              <img src="https://img.alicdn.com/tfs/TB1..50QpXXXXX7XpXXXXXXXXXX-40-40.png" alt="公安网备" />
-              <span>京公网安备 XXXXXXXXXXXXXX号</span>
-            </a>
+            <a href="https://beian.miit.gov.cn/" target="_blank" rel="noreferrer">蜀ICP备2026016056号-1</a>
           </div>
         </div>
       </div>
@@ -128,15 +123,25 @@ function featureList(items, accent = 'blue') {
   `;
 }
 
-function demoVideo(label, iconName = 'play-circle', extra = '') {
-  return `
-    <div class="demo-video ${extra}">
+function demoVideo(label, iconName = 'play-circle', extra = '', src = '') {
+  const videoMarkup = src
+    ? `
+      <video class="demo-video-player" autoplay muted loop playsinline preload="metadata" aria-label="${label}">
+        <source src="${src}" type="video/mp4" />
+      </video>
+    `
+    : `
       <div class="center">
         <div class="text-center">
           <i class="icon" data-lucide="${iconName}" style="width:64px;height:64px;color:#cbd5e1"></i>
           <div class="label">${label}</div>
         </div>
       </div>
+    `;
+
+  return `
+    <div class="demo-video ${extra}">
+      ${videoMarkup}
     </div>
   `;
 }
@@ -185,11 +190,10 @@ function homePage() {
         <h1 class="home-title reveal">
           <span class="home-glow" aria-hidden="true"></span>
           <span class="title-text">选图 从未如此智能</span>
-          <span class="home-underline" aria-hidden="true"></span>
         </h1>
 
         <p class="home-copy reveal">
-          强大的本地 AI 引擎，快速剔除废片、闭眼与重复底片。所有处理均在本地完成，无需上传云端，为您提供极致的隐私保护与绝对的安全。将繁琐的筛选交给机器，把时间留给创作。
+          强大的本地 AI 引擎，快速剔除<span class="copy-underline">废片、闭眼与重复底片</span>。所有处理均在本地完成，无需上传云端，为您提供极致的隐私保护与绝对的安全。将繁琐的筛选交给机器，把时间留给创作。
         </p>
 
         <div class="home-cta reveal">
@@ -268,68 +272,6 @@ function productPage() {
       </div>
     </section>
 
-    <section class="bento-section">
-      <div class="container">
-        <div class="section-heading">
-          <h2>重塑工作流的<br><span class="gradient">核心引擎。</span></h2>
-        </div>
-
-        <div class="bento-grid">
-          <article class="bento-card blue reveal">
-            <div class="bg"></div>
-            <div class="content">
-              <i class="icon accent-blue" data-lucide="cpu" style="width:32px;height:32px;margin-bottom:20px"></i>
-              <h3>快速 RAW 解析</h3>
-              <p>抛弃漫长的预渲染等待。深度优化的底层架构，让高像素 RAW 文件的加载速度突破极限，即点即看。</p>
-              <div class="bars">
-                ${[40, 70, 45, 90, 65, 100, 80]
-                  .map((h) => `<span class="bar" style="--h:${h}%"></span>`)
-                  .join('')}
-              </div>
-            </div>
-          </article>
-
-          <article class="bento-card purple reveal">
-            <div class="bg"></div>
-            <div class="content">
-              <i class="icon accent-purple" data-lucide="eye" style="width:32px;height:32px;margin-bottom:20px"></i>
-              <h3>微表情锁定</h3>
-              <p>一键放大并锁定画面中的所有人脸。闭眼、失焦、表情不佳？AI 帮您瞬间揪出。</p>
-              <div class="orbit">
-                <i class="icon accent-purple" data-lucide="scan" style="width:24px;height:24px"></i>
-              </div>
-            </div>
-          </article>
-
-          <article class="bento-card pink reveal">
-            <div class="bg"></div>
-            <div class="content">
-              <i class="icon accent-pink" data-lucide="layers" style="width:32px;height:32px;margin-bottom:20px"></i>
-              <h3>相似归组</h3>
-              <p>连拍几十张？AI 自动将相似场景归为一组，并为您推荐其中最完美的一张。</p>
-              <div class="stacking">
-                <span class="stack-card" style="transform:translateY(-16px) scale(0.96);z-index:9"></span>
-                <span class="stack-card" style="transform:translateY(-8px) scale(0.98);z-index:8"></span>
-                <span class="stack-card" style="transform:translateY(0) scale(1);z-index:7"></span>
-              </div>
-            </div>
-          </article>
-
-          <article class="bento-card green reveal">
-            <div class="bg"></div>
-            <div class="content">
-              <i class="icon accent-green" data-lucide="shield-check" style="width:32px;height:32px;margin-bottom:20px"></i>
-              <h3>绝对安全，极致隐私</h3>
-              <p>您的照片属于您自己。所有 AI 分析与处理均在本地设备上离线完成，无需上传任何数据到云端，从根本上杜绝隐私泄露风险。</p>
-              <div class="lock-card">
-                <i class="icon accent-green" data-lucide="shield-check" style="width:32px;height:32px;position:relative;z-index:1"></i>
-              </div>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
     <section class="showcase">
       <div class="container showcase-grid">
         ${featureRow({
@@ -339,7 +281,26 @@ function productPage() {
           title: 'AI 智能选图，自动剔除废片',
           desc: '告别手动筛选的繁琐。选图搭子 强大的本地 AI 引擎能够精准识别照片中的瑕疵，包括闭眼、失焦、严重模糊以及曝光异常。一键标记废片，让您只专注于最好的作品。',
           bullets: ['精准识别闭眼与微表情', '自动检测对焦准确度', '智能判断曝光问题'],
-          media: demoVideo('AI 智能选图演示视频'),
+          media: demoVideo('AI 智能选图演示视频', 'play-circle', '', './assets/videos/ai-select.mp4'),
+        })}
+
+        ${featureRow({
+          eyebrow: '高效解析',
+          eyebrowClass: 'pink',
+          title: 'RAW 格式快速加载',
+          desc: '无需等待漫长的预览图生成。我们深度优化了 RAW 文件的解析引擎，即使是大体积的源文件，也能实现快速的预览加载，让您的选图过程保持流畅。',
+          bullets: ['支持市面主流相机 RAW 格式', '无需预渲染，即点即看', '极低内存占用'],
+          media: demoVideo('快速加载演示视频', 'play-circle', '', './assets/videos/raw-load.mp4'),
+        })}
+
+        ${featureRow({
+          reverse: true,
+          eyebrow: '细节控必备',
+          eyebrowClass: 'green',
+          title: '人脸放大对比',
+          desc: '拍摄合影时，最难判断的往往是关键人物的眼神与表情。使用人脸放大功能，可将重要人脸单独放大显示，在多张照片间快速切换观察细节，更高效地完成筛选。',
+          bullets: ['重要人脸单独放大显示', '快速观察表情与闭眼细节', '支持快捷键快速切换'],
+          media: demoVideo('人脸放大演示视频', 'play-circle', '', './assets/videos/face-zoom.mp4'),
         })}
 
         ${featureRow({
@@ -348,36 +309,25 @@ function productPage() {
           title: '相似内容归组 & Best 推荐',
           desc: '连拍了几十张？没关系。选图搭子 会自动将相似场景、相同人物的照片进行智能归组。更棒的是，AI 会综合评估清晰度、表情和构图，为您推荐每组中的 Best 最佳照片。',
           bullets: ['毫秒级连拍照片分组', '多维度综合评分推荐', '支持自定义分组严格度'],
-          media: demoVideo('相似归组演示视频'),
-          reverse: false,
+          media: demoVideo('相似归组演示视频', 'play-circle', '', './assets/videos/grouping.mp4'),
         })}
 
         ${featureRow({
           reverse: true,
-          eyebrow: '高效解析',
-          eyebrowClass: 'pink',
-          title: 'RAW 格式快速加载',
-          desc: '无需等待漫长的预览图生成。我们深度优化了 RAW 文件的解析引擎，即使是大体积的源文件，也能实现快速的预览加载，让您的选图过程保持流畅。',
-          bullets: ['支持市面主流相机 RAW 格式', '无需预渲染，即点即看', '极低内存占用'],
-          media: demoVideo('快速加载演示视频'),
-        })}
-
-        ${featureRow({
-          eyebrow: '细节控必备',
+          eyebrow: '星级标记',
           eyebrowClass: 'green',
-          title: '人脸放大对比',
-          desc: '拍摄合影时最怕有人闭眼或表情不佳。使用人脸放大功能，一键锁定并放大画面中的所有人脸，在多张照片间快速切换对比，轻松选出完美合影。',
-          bullets: ['一键识别并框选所有人脸', '多图同步放大对比', '支持快捷键快速切换'],
-          media: demoVideo('人脸放大演示视频'),
+          title: '一键标星，导出后星级继续保留',
+          desc: '在筛选过程中直接给照片打 1 到 5 星。导出时会同步写入星级元数据，让 Lightroom 和 Capture One 打开后也能继续显示相同的星级，方便您无缝进入精修流程。',
+          bullets: ['支持 1-5 星快速标记', '导出时同步写入评级元数据', 'Lightroom / Capture One 可继续显示星级'],
+          media: demoVideo('标星同步导出演示视频', 'star', '', './assets/videos/star-export.mp4'),
         })}
 
         ${featureRow({
-          reverse: true,
           eyebrow: '安全至上',
           eyebrowClass: 'green',
           title: '100% 本地处理，极致隐私保护',
           desc: '在云端 AI 盛行的今天，我们坚持将选图搭子的核心 AI 引擎完全部署在您的本地设备上。这意味着您的任何私人照片、商业机密、未公开作品都不会离开您的电脑。',
-          bullets: ['无需网络连接，断网亦可使用', '零数据上传，彻底杜绝隐私泄露', '符合最严格的商业保密要求'],
+          bullets: ['零数据上传，彻底杜绝隐私泄露', '符合最严格的商业保密要求'],
           media: `
             <div class="demo-video">
               <div class="center">
@@ -416,8 +366,11 @@ function productPage() {
               <li>${icon('check-circle-2')}<span>后续 2.0/3.0 大版本补差价升级</span></li>
               <li>${icon('check-circle-2')}<span>支持单设备授权使用</span></li>
             </ul>
-            <a class="btn btn-primary" href="./download.html">立即下载 ${icon('arrow-right')}</a>
-            <p style="text-align:center;margin-top:16px">请先下载客户端，在软件内注册并购买</p>
+            <div style="display:grid;gap:12px">
+              <a class="btn btn-primary" href="./checkout.html">立即购买 ${icon('arrow-right')}</a>
+              <a class="btn btn-secondary" href="./download.html">先下载客户端</a>
+            </div>
+            <p style="text-align:center;margin-top:16px">官网提供完整收银台流程，购买成功后可在客户端内激活授权。</p>
           </article>
 
           <article class="pricing-card soft reveal">
@@ -514,7 +467,7 @@ function downloadPage() {
             <div class="step">
               <div class="circle" style="background:#f3e8ff;color:#7c3aed">${icon('key')}</div>
               <h4>2. 软件内登录</h4>
-              <p>打开 选图搭子，使用手机号或邮箱注册并登录账号。</p>
+              <p>打开 选图搭子，使用手机号注册并登录账号。</p>
             </div>
             <div class="step">
               <div class="circle" style="background:#fce7f3;color:#db2777">${icon('sparkles')}</div>
@@ -554,12 +507,12 @@ function aboutPage() {
           <div class="about-column reveal">
             <div class="about-icon">${icon('zap')}</div>
             <h3>最小阻力，最大价值。</h3>
-            <p>作为首个商业化版本，我们采用“最小可售卖版本”策略。我们没有堆砌华而不实的功能，而是优先解决最刚需、最高频的痛点：连拍分组、闭眼检测、模糊剔除。用最直观的界面和最少的操作层级，帮助您在数千张海量素材中，以极高的效率完成第一轮粗筛与优选。</p>
+            <p>作为首个商业化版本，我们采用“最小可售卖版本”策略。我们没有堆砌华而不实的功能，而是优先解决最刚需、最高频的痛点：连拍分组、闭眼检测。用最直观的界面和最少的操作层级，帮助您在数千张海量素材中，以极高的效率完成第一轮粗筛与优选。</p>
           </div>
           <div class="about-column reveal">
             <div class="about-icon" style="background:#ecfdf5">${icon('shield-check')}</div>
             <h3>绝对安全，拥抱未来。</h3>
-            <p>作为摄影师，客户的隐私与未公开作品的安全性至关重要。在 1.0 版本中，选图搭子坚持 100% 本地离线运行，所有 AI 推理均在您的设备上完成。同时，随着 AI 算力的演进，我们不排除在未来的 2.0 或 3.0 版本中引入可选的云端处理能力，以实现更深度的图像语义理解与智能排版，但“用户授权与数据隐私”始终是我们不可逾越的底线。</p>
+            <p>作为摄影师，客户的隐私与未公开作品的安全性至关重要。在 1.0 版本中，选图搭子坚持 100% 本地离线运行，所有 AI 推理均在您的设备上完成。未来的 2.0 与 3.0 版本也将继续坚持本地运行路线，在保障数据隐私与用户授权的前提下，持续提升图像理解能力与整体选图效率。</p>
           </div>
         </div>
       </div>
@@ -636,8 +589,8 @@ function faqPage() {
               </div>
             `,
           )}
-          ${faqItem('支持哪些操作系统？', '<p>目前支持 macOS (Apple Silicon M1/M2/M3 及 Intel 芯片，macOS 12.0 或更高版本) 和 Windows (Windows 10 / 11 64-bit，建议配备独立显卡以获得最佳性能)。</p>')}
-          ${faqItem('如何激活 7 天免费试用？', '<p>下载并安装客户端后，在软件内使用手机号或邮箱注册并登录账号，即可自动开启 7 天全功能免费试用，无需绑定信用卡。</p>')}
+          ${faqItem('支持哪些操作系统？', '<p>目前支持 macOS（Apple Silicon M1/M2/M3 及 Intel 芯片，macOS 12.0 或更高版本）。Windows 版本暂未开放。</p>')}
+          ${faqItem('如何激活 7 天免费试用？', '<p>下载并安装客户端后，在软件内使用手机号注册并登录账号，即可自动开启 7 天全功能免费试用。</p>')}
         </div>
       </div>
     </section>
@@ -658,14 +611,14 @@ function contactPage() {
             <div class="card-icon" style="background:#eef2ff;color:#4f46e5">${icon('mail')}</div>
             <h3>邮件支持</h3>
             <p>对于技术支持、账号问题或一般咨询，请发送邮件给我们。我们通常会在 24 小时内回复。</p>
-            <a class="contact-link" href="mailto:support@xuantudazi.com">support@xuantudazi.com ${icon('arrow-right')}</a>
+            <a class="contact-link" href="mailto:yunongguo9@gmail.com">yunongguo9@gmail.com ${icon('arrow-right')}</a>
           </article>
 
           <article class="content-card contact-card reveal">
             <div class="card-icon" style="background:#dcfce7;color:#16a34a">${icon('message-circle')}</div>
             <h3>微信客服</h3>
             <p>添加我们的官方微信客服，获取更及时的帮助，或加入用户交流群获取最新资讯。</p>
-            <div style="font-weight:600;color:#0f172a">微信号：xuantudazi_support</div>
+            <div style="font-weight:600;color:#0f172a">微信号：guo357719175</div>
           </article>
         </div>
 
@@ -674,7 +627,7 @@ function contactPage() {
           <div class="inner">
             <h2 style="margin:0 0 12px;font-size:2rem">商务合作</h2>
             <p>如果您是摄影工作室、摄影培训机构或相关媒体，希望与我们探讨合作机会，请直接联系我们的商务团队。</p>
-            <a class="btn btn-light" href="mailto:business@xuantudazi.com">联系商务团队</a>
+            <a class="btn btn-light" href="mailto:yunongguo9@gmail.com">联系商务团队</a>
           </div>
         </div>
       </div>
@@ -693,40 +646,126 @@ function legalPage() {
           <section class="legal-section" id="privacy">
             <h2>隐私政策</h2>
             <div class="legal-prose">
-              <p>欢迎您使用选图搭子（以下简称“本软件”）。我们非常重视您的隐私保护。本隐私政策旨在向您说明我们在您使用本软件时如何收集、使用、保存、共享和转让您的个人信息。</p>
+              <p>选图搭子（以下简称“我们”）深知个人信息对您的重要性，我们将严格遵守相关法律法规，采取相应的安全保护措施来保护您的个人信息。</p>
+              <p><strong>特别提示：选图搭子 1.0、2.0 及 3.0 的核心定位均是“本地 AI 选图工具”，我们的核心照片分析与筛选工作流均在您的本地设备上完成，我们绝不会将您的原片上传至云端。</strong></p>
+              <p>请您在使用我们的产品与/或服务前，仔细阅读并充分理解本《选图搭子 隐私政策》。</p>
 
-              <h3>1. 本地处理原则</h3>
-              <p><strong>选图搭子的核心功能（包括图片加载、AI 智能选图、人脸识别、闭眼检测等）完全在您的本地设备上离线运行。</strong> 我们不会将您的任何图片、面部特征数据或其他媒体文件上传至云端服务器。您的照片隐私完全属于您自己。</p>
+              <h3>1. 我们如何收集和使用您的信息</h3>
+              <p>为了向您提供软件的各项功能及服务，我们将根据“合法、正当、必要”的原则，在以下场景区分收集和使用您的信息：</p>
 
-              <h3>2. 我们收集的信息</h3>
-              <p>为了提供基础的软件授权和更新服务，我们仅会收集以下必要信息：</p>
+              <h4>1.1 用户主动提供的信息</h4>
+              <p>当您注册账号时，您可能需要向我们主动提供以下信息：</p>
               <ul>
-                <li><strong>设备信息：</strong> 用于软件授权绑定的设备唯一标识符（如 MAC 地址的哈希值）。</li>
-                <li><strong>授权信息：</strong> 您的购买记录、激活码及授权状态。</li>
-                <li><strong>崩溃日志（可选）：</strong> 当软件发生崩溃时，在您明确同意的情况下，我们会收集匿名的崩溃日志以帮助我们修复 Bug。</li>
+                <li><strong>账号信息：</strong>您的手机号码或其他登录凭证（用于创建账号和身份验证）。</li>
+                <li><strong>基础资料：</strong>您自愿设置的账户昵称、头像等。</li>
               </ul>
 
-              <h3>3. 信息的存储与保护</h3>
-              <p>我们采用业界标准的安全技术和措施来保护您的信息，防止数据遭到未经授权的访问、公开披露、使用、修改、损坏或丢失。</p>
+              <h4>1.2 本地处理的照片数据（核心声明）</h4>
+              <ul>
+                <li><strong>本地处理原则：</strong>您导入到 选图搭子 软件中的照片、图片文件、文件夹路径、筛选结果、项目数据、导出结果等，均属于您在本地设备上处理的数据内容。</li>
+                <li><strong>不上传云端：</strong>由于 选图搭子 的核心定位是本地 AI 工具，本软件的所有核心选图、去重、闭眼及废片分析功能，均完全在您的本地设备上运行，绝不会将您的照片上传至任何云端服务器。您的影像资产隐私将得到最大程度的本地化保护。</li>
+              </ul>
+
+              <h4>1.3 订单与授权信息</h4>
+              <p>为了保障您的合法权益、确认您的软件使用权限，我们会收集并记录您的：</p>
+              <ul>
+                <li><strong>交易状态：</strong>购买记录、订单号、支付状态、退款记录。</li>
+                <li><strong>授权状态：</strong>试用期状态、1.0 版本买断授权状态、设备绑定记录及授权密钥信息。</li>
+              </ul>
+
+              <h4>1.4 软件运行必要信息</h4>
+              <p>为保障软件的安全稳定运行、进行授权验证、异常排查及服务改进，在软件后台运行期间，我们可能会自动收集必要的系统与技术性数据，包括：</p>
+              <ul>
+                <li><strong>设备信息：</strong>设备型号、操作系统版本、唯一设备标识符（如 MAC 地址/机器码，仅用于设备授权绑定与限制）。</li>
+                <li><strong>日志信息：</strong>软件崩溃日志、错误代码、基础运行日志（不包含您的照片实体内容）。</li>
+              </ul>
+              <p>这些信息仅限于实现登录、授权、购买、稳定性维护和安全风控所必需的最小范围。</p>
+
+              <h3>2. 我们如何存储和保护您的信息</h3>
+              <ul>
+                <li><strong>存储地点：</strong>我们在中华人民共和国境内收集和产生的个人信息，将存储在境内服务器。</li>
+                <li><strong>安全措施：</strong>我们采用业界标准的安全技术措施（如加密传输、数据脱敏等）来保护您的订单、账号及授权等敏感信息，防止数据遭到未经授权的访问、公开披露、使用或修改。</li>
+                <li><strong>本地数据安全：</strong>对于您在本地处理的照片数据，其安全性依赖于您个人设备的物理及系统安全，请您妥善保管您的个人电脑及存储设备。</li>
+              </ul>
+
+              <h3>3. 我们如何共享、公开披露您的信息</h3>
+              <p>我们不会将您的个人信息出售给任何第三方。我们仅在以下情况共享或披露您的信息：</p>
+              <ul>
+                <li>获得您的明确同意。</li>
+                <li>基于法定情形：根据法律法规规定、诉讼争议解决需要，或行政、司法机关依法提出的要求。</li>
+                <li>与授权合作伙伴共享：例如，为了完成订单支付，我们需要将必要的订单号及金额信息共享给第三方支付机构（如微信支付、支付宝）。</li>
+              </ul>
+
+              <h3>4. 您的权利</h3>
+              <p>您对自己的个人信息享有查阅、更正、补充及删除的权利。您可以通过软件内的账号设置页面管理您的基础信息。如您需要注销账号，可联系我们的官方客服，我们将在核实您的身份及订单结算状态后，在法定时限内为您处理账号注销。</p>
+
+              <h3>5. 联系我们</h3>
+              <p>如果您对本隐私政策或您的个人信息保护有任何疑问、意见或建议，可通过以下方式与我们联系：</p>
+              <ul>
+                <li><strong>客服邮箱：</strong>yunongguo9@gmail.com</li>
+                <li><strong>客服微信：</strong>guo357719175</li>
+              </ul>
             </div>
           </section>
 
           <section class="legal-section" id="terms">
             <h2>用户协议</h2>
             <div class="legal-prose">
-              <p>本《用户协议》（以下简称“本协议”）是您与选图搭子开发者之间关于下载、安装、使用本软件所订立的协议。</p>
+              <p>欢迎您使用 选图搭子！</p>
+              <p>本《选图搭子 用户协议》（以下简称“本协议”）是您（以下简称“用户”或“您”）与 选图搭子 软件开发者/运营方（以下简称“我们”或“平台”）之间关于下载、安装、使用 选图搭子 软件及相关服务所订立的合法协议。<strong>在注册、登录或使用本软件前，请您务必审慎阅读、充分理解各条款内容，特别是免除或限制责任的条款、知识产权条款以及关于 AI 辅助判断的特别说明。</strong></p>
 
-              <h3>1. 软件授权</h3>
-              <p>本软件提供“1.0 版本买断”授权模式。您购买后，将获得本软件 1.x 版本的永久使用权，并可免费获取 1.x 版本的后续更新。单设备授权仅限在一台计算机上激活使用。</p>
+              <h3>1. 软件定位与服务内容</h3>
+              <ul>
+                <li><strong>软件定位：</strong>选图搭子 1.0 是一款专为婚礼摄影师、人像摄影师及高产出职业摄影从业者设计的本地 AI 选图工具。本软件聚焦于“选图初筛效率”，旨在通过本地工作流帮助用户降低海量素材的筛查压力。当前版本支持 macOS（Apple Silicon M1/M2/M3 及 Intel 芯片，macOS 12.0 或更高版本），Windows 版本暂未开放。</li>
+                <li><strong>非全流程平台：</strong>选图搭子 1.0 本质上是一款效率型辅助工具，并非全流程修图 SaaS 或完整经营后台。当前版本不包含复杂人像分类体系、情绪/场景/动作分类等功能。</li>
+              </ul>
 
-              <h3>2. 使用限制</h3>
-              <p>您不得对本软件进行反向工程、反向编译或反汇编；不得修改、破坏本软件原有的版权声明；不得利用本软件进行任何违法活动。</p>
+              <h3>2. 核心功能与 AI 辅助判断特别声明</h3>
+              <p><strong>核心功能：</strong>选图搭子 1.0 提供以下核心初筛辅助功能：</p>
+              <ul>
+                <li><strong>相似内容识别与归组：</strong>对导入照片进行相似内容识别，将明显重复或连续相似的照片归组。</li>
+                <li><strong>重复组内 Best 选择：</strong>在重复照片组中，辅助推荐相对更优的照片。</li>
+                <li><strong>闭眼识别：</strong>识别照片中的明显闭眼情况，辅助标记或排除。</li>
+                <li><strong>废片识别：</strong>对明显失焦、严重模糊、严重曝光异常、误触快门等明显低可用性照片进行辅助识别并归入“废片”类型。</li>
+              </ul>
 
-              <h3>3. 免责声明</h3>
-              <p>本软件按“现状”提供。我们尽最大努力确保软件的稳定性和准确性，但不对因使用本软件而导致的任何直接或间接损失（包括但不限于数据丢失、业务中断等）承担法律责任。请您在使用前做好重要数据的备份工作。</p>
+              <p><strong>AI 辅助性质与责任边界（重要）：</strong></p>
+              <ul>
+                <li><strong>仅为效率辅助：</strong>上述识别、分组、辅助判断和推荐结果，仅属于提升筛选效率的辅助能力，我们不对照片内容的绝对正确性或百分之百准确性作出任何保证。</li>
+                <li><strong>不评判艺术价值：</strong>“废片”识别仅基于技术指标（如对焦、曝光等）进行效率辅助判断，绝不代表对照片的艺术价值、纪实价值、情绪价值或特殊保留意义作出最终结论。</li>
+                <li><strong>用户复核义务：</strong>软件的识别与归类结果仅供参考。最终保留、删除、导出或使用某张照片的决定，必须由您自行人工复核并作出。</li>
+                <li><strong>免责声明：</strong>因您完全依赖软件的 AI 判断结果、未作必要人工复核而导致的任何素材误删、丢失、交付失误或商业损失，平台不承担任何法律及赔偿责任。</li>
+              </ul>
 
-              <h3>4. 协议修改</h3>
-              <p>我们保留在必要时修改本协议的权利。协议修改后，我们将在官方网站或软件内公布。如果您继续使用本软件，即视为您接受修改后的协议。</p>
+              <h3>3. 账号、登录与试用机制</h3>
+              <ul>
+                <li><strong>账号注册：</strong>选图搭子 1.0 仅支持手机号注册/登录。您应保证所提供的手机号码及其他账号信息真实、合法、有效。您的账号仅限您本人使用，不得转让、出借或售卖。</li>
+                <li><strong>免费试用：</strong>新用户首次登录后，可自动获得 7 天免费试用资格，试用期内可体验 1.0 版本的核心功能。</li>
+                <li><strong>试用期满：</strong>试用期结束后，如您未付费解锁，软件的相关核心功能将被限制。您需完成付款后方可继续使用正式版能力。</li>
+              </ul>
+
+              <h3>4. 软件授权、买断制与版本权益</h3>
+              <ul>
+                <li><strong>买断制授权：</strong>选图搭子 1.0 采用买断制（非订阅制）。您完成购买后，即可获得 1.0 正式版的永久解锁权益，无需针对 1.0 版本重复续费。</li>
+                <li><strong>价格政策：</strong>软件在不同阶段实行不同定价（如内测阶段 199 元，公测阶段 399 元），具体以购买时页面展示为准。</li>
+                <li><strong>老用户权益与后续升级：</strong>已购买 1.0 的用户默认享有“老用户身份”。未来当平台发布 2.0 或 3.0 大版本时（2.0 及 3.0 版本也将继续保持本地运行的原则），老用户享有“补差价升级资格”，无需全价重新购买。</li>
+              </ul>
+
+              <h3>5. 退款观察期规则</h3>
+              <ul>
+                <li><strong>7 天退款观察期：</strong>鉴于软件已提供 7 天免费试用期供您充分体验，正式购买后原则上不鼓励退款。但为保障用户权益，我们提供购买后 7 天的退款观察期。</li>
+                <li><strong>退款申请：</strong>如您在购买后 7 天内确需退款，可向平台提交申请，平台将按规则审核处理。超过 7 天后，平台将不再接受无理由退款申请。</li>
+              </ul>
+
+              <h3>6. 知识产权与禁止破解</h3>
+              <ul>
+                <li><strong>平台知识产权：</strong>选图搭子 软件本身的代码、UI 界面、算法流程、商标、图文文档等所有知识产权均归开发者或相关权利人所有。您购买的仅为软件的使用授权，并非获得软件源码、算法或商标的所有权。</li>
+                <li><strong>用户数据产权：</strong>您自行导入软件内的照片、项目文件及其内容，其知识产权及相关权利仍归您或原权利人所有，您需自行对其合法性负责。</li>
+                <li><strong>禁止反向工程与破解：</strong>您承诺并保证，不得对本软件进行反向工程、反向编译、反汇编，不得尝试提取源代码或算法；不得对软件进行非法破解、篡改、复制、转售；不得制作、发布、传播外挂程序或利用技术手段绕过平台的授权控制机制。如有违反，平台有权立即终止您的授权、封禁账号，并追究您的法律责任。</li>
+              </ul>
+
+              <h3>7. 协议的变更与终止</h3>
+              <p>我们有权根据业务发展或法律法规变化修改本协议。协议修改后，我们将在软件内或官网予以公布。若您继续使用本软件，即视为您已接受修改后的协议。若您严重违反本协议（如破解软件、违规套现等），我们有权单方面终止向您提供服务，并保留追究法律责任的权利。</p>
             </div>
           </section>
         </div>
@@ -755,6 +794,7 @@ function changelogPage() {
             <li>${icon('check-circle-2')}<span><strong>全新发布：</strong> 选图搭子 1.0 首次内测上线。</span></li>
             <li>${icon('check-circle-2')}<span><strong>AI 智能选图：</strong> 支持自动识别闭眼、失焦、严重模糊、曝光异常等废片。</span></li>
             <li>${icon('check-circle-2')}<span><strong>相似归组：</strong> 智能识别相似照片并进行归组，提供 Best 推荐。</span></li>
+            <li>${icon('check-circle-2')}<span><strong>标星同步导出：</strong> 支持一键标星，导出后可在 Lightroom 和 Capture One 中继续显示星级。</span></li>
             <li>${icon('check-circle-2')}<span><strong>快速加载：</strong> 优化 RAW 格式解析引擎，实现快速预览加载。</span></li>
             <li>${icon('check-circle-2')}<span><strong>人脸放大：</strong> 支持一键放大并锁定所有人脸，方便对比微表情。</span></li>
           </ul>
@@ -769,14 +809,22 @@ function checkoutPage() {
     <section class="content-page">
       <div class="container">
         <div class="checkout-top reveal">
-          <div class="crumb">${icon('shield-check')} <span>官方安全支付收银台</span></div>
-          <a href="./index.html" style="color:#64748b">返回官网首页</a>
+          <div>
+            <div class="crumb">${icon('shield-check')} <span>支付宝电脑网站支付</span></div>
+            <h1 class="checkout-heading">收银台</h1>
+          </div>
+          <a href="./product.html" style="color:#64748b">返回产品页</a>
         </div>
 
         <div class="checkout-grid">
           <div>
             <article class="content-card checkout-order reveal">
-              <h2>订单详情</h2>
+              <h2>订单概览</h2>
+              <div class="order-meta">
+                <span>订单号：XTDZ202604100001</span>
+                <span>下单时间：2026-04-10 11:30</span>
+                <span>商户名称：选图搭子官方商城</span>
+              </div>
               <div class="order-row">
                 <div>
                   <h3>选图搭子 1.0 版本买断</h3>
@@ -793,36 +841,123 @@ function checkoutPage() {
               </div>
             </article>
 
+            <article class="content-card checkout-items reveal" style="margin-top:24px">
+              <h2>商品信息</h2>
+              <div class="checkout-table">
+                <div class="checkout-table-head">
+                  <span>商品名称</span>
+                  <span>授权类型</span>
+                  <span>数量</span>
+                  <span>价格</span>
+                </div>
+                <div class="checkout-table-row">
+                  <div>
+                    <strong>选图搭子 1.0 版本买断</strong>
+                    <p>本地 AI 选图工具，适用于摄影师初筛工作流</p>
+                  </div>
+                  <span>单设备永久授权</span>
+                  <span>1</span>
+                  <strong>¥199.00</strong>
+                </div>
+              </div>
+            </article>
+
+            <article class="content-card checkout-form reveal" style="margin-top:24px">
+              <h2>购买信息</h2>
+              <div class="checkout-info-list">
+                <div><span>手机号</span><strong>13800138000</strong></div>
+                <div><span>购买人</span><strong>郭先生</strong></div>
+                <div><span>购买版本</span><strong>1.0 版本买断</strong></div>
+                <div><span>授权设备数</span><strong>1 台设备</strong></div>
+                <div><span>售后说明</span><strong>支持 1.x 版本持续更新</strong></div>
+              </div>
+            </article>
+
             <article class="content-card checkout-pay reveal" style="margin-top:24px">
-              <h2>选择支付方式</h2>
-              <div class="payment-grid">
-                <button class="payment-option alipay active" type="button" data-payment-option="alipay">
-                  <span class="chip">支</span>
-                  <span class="name">支付宝支付</span>
-                  <span class="check">${icon('check-circle-2')}</span>
-                </button>
-                <button class="payment-option wechat" type="button" data-payment-option="wechat">
-                  <span class="chip">微</span>
-                  <span class="name">微信支付</span>
-                  <span class="check">${icon('check-circle-2')}</span>
-                </button>
+              <h2>支付方式</h2>
+              <div class="payment-method-static">
+                <div class="chip">支</div>
+                <div>
+                  <strong>支付宝电脑网站支付</strong>
+                  <p>当前订单默认使用支付宝完成付款</p>
+                </div>
+              </div>
+              <div class="checkout-note">
+                <p>提交订单后将进入支付宝收银台完成付款，支付成功后自动返回订单结果页。</p>
               </div>
             </article>
           </div>
 
           <aside class="sticky-card">
-            <article class="content-card reveal" style="text-align:center">
-              <h2 style="margin:0 0 20px;font-size:1.15rem">使用 <span id="payment-method-label">支付宝</span> 扫码支付</h2>
+            <article class="content-card reveal checkout-side-card">
+              <div class="side-badge">支付宝收银台</div>
+              <h2 style="margin:0 0 12px;font-size:1.15rem">使用 <span id="payment-method-label">支付宝</span> 完成付款</h2>
+              <p class="side-copy">请核对订单金额与商品信息，确认无误后提交订单并前往支付宝完成付款。</p>
               <div class="qr-box">
                 ${icon('qr-code')}
-                <div class="overlay"><span style="font-size:.9rem;font-weight:600;color:#475569">等待接入支付接口</span></div>
+                <div class="overlay"><span style="font-size:.9rem;font-weight:600;color:#475569">支付二维码 / 跳转入口</span></div>
               </div>
-              <p style="margin:0 0 22px;color:#64748b;font-size:.93rem;line-height:1.75">
-                支付完成后，您的软件将自动激活。如果未自动刷新，请在软件内点击“我已支付”。
+              <div class="side-summary">
+                <div><span>商品总额</span><strong>¥399.00</strong></div>
+                <div><span>限时优惠</span><strong>- ¥200.00</strong></div>
+                <div><span>商品名称</span><strong>选图搭子 1.0 版本买断</strong></div>
+                <div><span>支付状态</span><strong class="status-waiting">待支付</strong></div>
+                <div><span>应付金额</span><strong class="pay-highlight">¥199.00</strong></div>
+              </div>
+              <a class="btn btn-primary" href="./pay-success.html">提交订单并前往支付 ${icon('arrow-right')}</a>
+              <p style="margin:14px 0 22px;color:#64748b;font-size:.93rem;line-height:1.75">
+                支付成功后将自动返回结果页，并展示订单号、支付金额和支付状态。
               </p>
               <div class="security-chip">${icon('shield-check')} 安全支付保障</div>
             </article>
           </aside>
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+function paySuccessPage() {
+  return `
+    <section class="content-page">
+      <div class="container">
+        <div class="payment-result reveal">
+          <div class="result-icon">${icon('badge-check')}</div>
+          <p class="result-kicker">支付结果页</p>
+          <h1>支付成功，订单已完成</h1>
+          <p class="result-copy">您已成功购买 选图搭子 1.0 版本买断。授权将在客户端内同步生效，后续可使用购买手机号登录并激活设备。</p>
+
+          <div class="result-grid">
+            <div class="result-item">
+              <span>订单号</span>
+              <strong>XTDZ202604100001</strong>
+            </div>
+            <div class="result-item">
+              <span>支付方式</span>
+              <strong>支付宝电脑网站支付</strong>
+            </div>
+            <div class="result-item">
+              <span>支付金额</span>
+              <strong>¥199.00</strong>
+            </div>
+            <div class="result-item">
+              <span>支付状态</span>
+              <strong class="status-success">支付成功</strong>
+            </div>
+            <div class="result-item">
+              <span>购买人手机号</span>
+              <strong>13800138000</strong>
+            </div>
+            <div class="result-item">
+              <span>支付时间</span>
+              <strong>2026-04-10 11:35</strong>
+            </div>
+          </div>
+
+          <div class="result-actions">
+            <a class="btn btn-primary" href="./download.html">前往下载客户端</a>
+            <a class="btn btn-secondary" href="./product.html">返回产品页</a>
+          </div>
         </div>
       </div>
     </section>
@@ -839,6 +974,7 @@ const PAGES = {
   legal: legalPage,
   changelog: changelogPage,
   checkout: checkoutPage,
+  'pay-success': paySuccessPage,
 };
 
 function currentPageKey() {
@@ -856,6 +992,7 @@ function currentPageKey() {
   if (path.endsWith('/legal.html')) return 'legal';
   if (path.endsWith('/changelog.html')) return 'changelog';
   if (path.endsWith('/checkout.html')) return 'checkout';
+  if (path.endsWith('/pay-success.html')) return 'pay-success';
   return 'home';
 }
 
