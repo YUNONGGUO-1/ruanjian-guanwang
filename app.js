@@ -1,8 +1,10 @@
 const PAGE_LINKS = [
-  { key: 'home', label: '首页', href: './index.html' },
-  { key: 'product', label: '产品', href: './product.html' },
-  { key: 'download', label: '下载', href: './download.html' },
+  { key: 'home', label: '首页' },
+  { key: 'product', label: '产品' },
+  { key: 'download', label: '下载' },
 ];
+
+const DOWNLOAD_URL = 'https://download.cullmate.com/latest.dmg';
 
 function icon(name, extraClass = '') {
   return `<i class="icon ${extraClass}" data-lucide="${name}"></i>`;
@@ -16,9 +18,27 @@ function appLink(href, label) {
   return `<a href="${href}">${label}</a>`;
 }
 
-function navLink(link, activePage, mobile = false) {
+function navHref(linkKey, activePage) {
+  const inLanding = activePage === 'home' || activePage === 'product';
+
+  if (linkKey === 'home') {
+    return inLanding ? '#home' : './index.html#home';
+  }
+
+  if (linkKey === 'product') {
+    return inLanding ? '#product' : './index.html#product';
+  }
+
+  if (activePage === 'download') {
+    return '#download';
+  }
+
+  return './download.html';
+}
+
+function navLink(link, activePage) {
   const active = activePage === link.key ? 'active' : '';
-  return `<a class="${active}" href="${link.href}" data-nav-link="${link.key}">${link.label}</a>`;
+  return `<a class="${active}" href="${navHref(link.key, activePage)}" data-nav-link="${link.key}">${link.label}</a>`;
 }
 
 function renderHeader(activePage) {
@@ -146,6 +166,43 @@ function demoVideo(label, iconName = 'play-circle', extra = '', src = '') {
   `;
 }
 
+function featureArtwork({ src, alt, caption = '' }) {
+  return `
+    <div class="feature-artwork">
+      <img class="feature-artwork-image" src="${src}" alt="${alt}" loading="lazy" />
+      ${caption ? `<div class="feature-artwork-caption">${caption}</div>` : ''}
+    </div>
+  `;
+}
+
+function localOfflineArtwork() {
+  return `
+    <div class="feature-artwork feature-artwork-local">
+      <div class="feature-offline-shell">
+        <div class="feature-offline-top">
+          <span class="feature-offline-dot"></span>
+          <span class="feature-offline-dot"></span>
+          <span class="feature-offline-dot"></span>
+        </div>
+
+        <div class="feature-offline-stage">
+          <div class="feature-offline-card feature-offline-card-back"></div>
+          <div class="feature-offline-card feature-offline-card-front">
+            <div class="feature-offline-lock">${icon('shield-check')}</div>
+            <div class="feature-offline-title">照片只在电脑里处理</div>
+            <div class="feature-offline-copy">不上传云端，不经过服务器</div>
+          </div>
+        </div>
+
+        <div class="feature-offline-footer">
+          <span>${icon('database')} 本地 AI 推理</span>
+          <span>${icon('lock')} 仅在设备内运行</span>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
 function featureRow({
   eyebrow,
   eyebrowClass = '',
@@ -170,75 +227,57 @@ function featureRow({
 
 function homePage() {
   return `
-    <section class="home-hero">
+    <section class="home-hero" id="home">
       <div class="home-atmosphere" aria-hidden="true">
         <div class="home-orb one"></div>
-        <div class="home-orb two"></div>
-        <div class="home-orb three"></div>
         <div class="grid-overlay"></div>
-        <div class="home-particles" id="home-particles"></div>
       </div>
 
-      <div class="container home-hero-inner hero-stack">
-        <div class="pill reveal">
-          ${icon('sparkles')}
-          <span class="muted">选图搭子 1.0 现已发布</span>
-        </div>
+      <div class="container home-hero-inner">
+        <div class="home-copy-panel reveal">
+          <p class="home-kicker">CULLMATE</p>
 
-        <p class="home-kicker reveal">CULLMATE</p>
-
-        <div class="home-hero-media reveal" aria-hidden="true">
-          <img src="./assets/hero-gemini.png" alt="" />
-        </div>
-
-        <div class="home-copy-block reveal">
           <h1 class="home-title">
             <span class="home-glow" aria-hidden="true"></span>
-            <span class="title-text">选图 从未如此智能</span>
+            <span class="title-text">
+              <span class="title-line">把选图，</span>
+              <span class="title-line">做成更优雅的事</span>
+            </span>
           </h1>
 
+          <p class="home-copy">
+            面向摄影师的本地 AI 选图工具，自动剔除废片、归组相似照片、锁定最佳瞬间。
+            让你把时间留给审美，而不是耗在逐张比对上。
+          </p>
+
           <div class="home-cta">
-            <a class="btn btn-primary btn-gradient" href="./product.html">
+            <a class="btn btn-primary btn-gradient" href="./download.html">
               <span>立即下载 ${icon('arrow-right')}</span>
             </a>
+            <a class="home-text-link" href="./product.html">${icon('layout-grid')} 查看功能</a>
+          </div>
+        </div>
+
+        <div class="home-visual-panel reveal" aria-hidden="true">
+          <div class="home-visual-card">
+            <div class="home-hero-media">
+              <img src="./assets/hero-gemini.png" alt="" />
+            </div>
           </div>
         </div>
       </div>
     </section>
+
+    ${productPage()}
   `;
 }
 
 function productPage() {
   return `
-    <section class="section product-hero">
+    <section class="section product-hero" id="product">
       <div class="container">
         <h1 class="page-heading reveal">重新定义选图效率。</h1>
         <p class="page-lead reveal">选图搭子 1.0 带来前所未有的 AI 智能选图体验。从自动剔除废片到快速 RAW 加载，每一项功能都为节省您的时间而生。</p>
-      </div>
-    </section>
-
-    <section class="section mockup-wrap">
-      <div class="container">
-        <div class="product-video-card reveal">
-          <div class="product-video-header">
-            <span class="window-dot red"></span>
-            <span class="window-dot yellow"></span>
-            <span class="window-dot green"></span>
-            <div class="product-video-title">${icon('video')} 完整操作流程视频占位</div>
-          </div>
-
-          <div class="product-video-body">
-            <div class="product-video-placeholder">
-              <div class="product-video-icon">${icon('play-circle')}</div>
-              <h3>这里放完整操作流程视频</h3>
-              <p>先保留视频卡片的位置，等你的视频做完后直接替换成 <code>assets/videos/product-flow.mp4</code> 即可。</p>
-              <div class="product-video-meta">
-                <span>16:9 视频卡片</span>
-                <span>自动播放 / 静音 / 循环</span>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
 
@@ -249,9 +288,12 @@ function productPage() {
           eyebrow: '核心功能',
           eyebrowClass: 'blue',
           title: 'AI 智能选图，自动剔除废片',
-          desc: '告别手动筛选的繁琐。选图搭子 强大的本地 AI 引擎能够精准识别照片中的瑕疵，包括闭眼、失焦、严重模糊以及曝光异常。一键标记废片，让您只专注于最好的作品。',
+          desc: '告别手动筛选的繁琐。选图搭子 强大的本地 AI 引擎能够精准识别照片中的瑕疵。一键标记废片，让您只专注于最好的作品。',
           bullets: ['精准识别闭眼与微表情'],
-          media: demoVideo('AI 智能选图演示视频', 'play-circle', '', './assets/videos/ai-select.mp4'),
+          media: featureArtwork({
+            src: './assets/showcase/ai-select.png',
+            alt: 'AI 智能选图截图',
+          }),
         })}
 
         ${featureRow({
@@ -260,7 +302,10 @@ function productPage() {
           title: 'RAW 格式快速加载',
           desc: '无需等待漫长的预览图生成。我们深度优化了 RAW 文件的解析引擎，即使是大体积的源文件，也能实现快速的预览加载，让您的选图过程保持流畅。',
           bullets: ['支持市面主流相机 RAW 格式', '无需预渲染，即点即看', '极低内存占用'],
-          media: demoVideo('快速加载演示视频', 'play-circle', '', './assets/videos/raw-load.mp4'),
+          media: featureArtwork({
+            src: './assets/showcase/raw-load.png',
+            alt: 'RAW 格式快速加载截图',
+          }),
         })}
 
         ${featureRow({
@@ -270,7 +315,10 @@ function productPage() {
           title: '人脸放大对比',
           desc: '拍摄合影时，最难判断的往往是关键人物的眼神与表情。使用人脸放大功能，可将重要人脸单独放大显示，在多张照片间快速切换观察细节，更高效地完成筛选。',
           bullets: ['重要人脸单独放大显示', '快速观察表情与闭眼细节'],
-          media: demoVideo('人脸放大演示视频', 'play-circle', '', './assets/videos/face-zoom.mp4'),
+          media: featureArtwork({
+            src: './assets/showcase/face-zoom.png',
+            alt: '人脸放大对比截图',
+          }),
         })}
 
         ${featureRow({
@@ -279,7 +327,10 @@ function productPage() {
           title: '相似内容归组 & Best 推荐',
           desc: '连拍了几十张？没关系。选图搭子 会自动将相似场景、相同人物的照片进行智能归组。更棒的是，AI 会综合评估清晰度、表情和构图，为您推荐每组中的 Best 最佳照片。',
           bullets: ['毫秒级连拍照片分组', '多维度综合评分推荐', '支持自定义分组严格度'],
-          media: demoVideo('相似归组演示视频', 'play-circle', '', './assets/videos/grouping.mp4'),
+          media: featureArtwork({
+            src: './assets/showcase/grouping.png',
+            alt: '相似内容归组截图',
+          }),
         })}
 
         ${featureRow({
@@ -289,7 +340,10 @@ function productPage() {
           title: '一键标星，导出后星级继续保留',
           desc: '在筛选过程中直接给照片打 1 到 5 星。导出时会同步写入星级元数据，让 Lightroom 和 Capture One 打开后也能继续显示相同的星级，方便您无缝进入精修流程。',
           bullets: ['支持 1-5 星快速标记', '导出时同步写入评级元数据', 'Lightroom / Capture One 可继续显示星级'],
-          media: demoVideo('标星同步导出演示视频', 'star', '', './assets/videos/star-export.mp4'),
+          media: featureArtwork({
+            src: './assets/showcase/star-rating.png',
+            alt: '一键标星截图',
+          }),
         })}
 
         ${featureRow({
@@ -298,16 +352,7 @@ function productPage() {
           title: '100% 本地处理，极致隐私保护',
           desc: '在云端 AI 盛行的今天，我们坚持将选图搭子的核心 AI 引擎完全部署在您的本地设备上。这意味着您的任何私人照片、商业机密、未公开作品都不会离开您的电脑。',
           bullets: ['零数据上传，彻底杜绝隐私泄露', '符合最严格的商业保密要求'],
-          media: `
-            <div class="demo-video">
-              <div class="center">
-                <div class="text-center">
-                  <i class="icon" data-lucide="shield-check" style="width:64px;height:64px;color:rgba(16,185,129,0.55)"></i>
-                  <div class="label" style="color:rgba(16,185,129,0.45)">本地离线运行</div>
-                </div>
-              </div>
-            </div>
-          `,
+          media: localOfflineArtwork(),
         })}
       </div>
     </section>
@@ -358,7 +403,7 @@ function productPage() {
 
 function downloadPage() {
   return `
-    <section class="download-page">
+    <section class="download-page" id="download">
       <div class="download-glow" aria-hidden="true"></div>
       <div class="container">
         <div class="section-heading">
@@ -372,21 +417,21 @@ function downloadPage() {
             <div class="big-icon">${icon('apple')}</div>
             <h3>macOS</h3>
             <div class="download-meta">
-              <strong>v1.0.3 Beta</strong>
+              <strong>v0.9.0 Beta</strong>
               <span>•</span>
-              <span>2026-03-25</span>
+              <span>2026-04-18</span>
               <span>•</span>
-              <span>158 MB</span>
+              <span>158.78 MB</span>
             </div>
 
             <div class="spec-box">
               <h4>系统与硬件要求：</h4>
-              <div class="spec-item">${icon('apple')}<span>macOS 12.0 或更高版本<br><small style="color:#94a3b8">原生支持 Apple Silicon (M1/M2/M3) 及 Intel 芯片</small></span></div>
+              <div class="spec-item">${icon('apple')}<span>macOS 15.0 或更高版本<br><small style="color:#94a3b8">推荐使用 Apple 原生 M 系列芯片</small></span></div>
               <div class="spec-item">${icon('cpu')}<span>最低 8GB 统一内存<br><small style="color:#94a3b8">推荐 16GB 及以上以获得最佳 AI 选图速度</small></span></div>
               <div class="spec-item">${icon('hard-drive')}<span>2GB 可用存储空间</span></div>
             </div>
 
-            <button class="btn btn-primary download-action" data-platform="mac" type="button">${icon('download')} 下载 Mac 版</button>
+            <a class="btn btn-primary download-action" data-platform="mac" href="${DOWNLOAD_URL}">${icon('download')} 下载 Mac 版</a>
             <p style="font-size:.88rem;color:#94a3b8;margin:14px 0 0;display:flex;gap:6px;justify-content:center;align-items:center">${icon('shield-check')} 100% 纯净：无广告、无捆绑、无隐私收集</p>
           </article>
 
@@ -406,17 +451,6 @@ function downloadPage() {
 
             <button class="btn btn-disabled" disabled type="button">${icon('monitor')} Windows 版即将推出</button>
           </article>
-        </div>
-
-        <div class="agreement reveal" id="agreement-wrap">
-          <label>
-            <span class="check-box" id="agreement-box"></span>
-            <input id="agreement-input" type="checkbox" />
-            <span class="agreement-text">
-              我已阅读并同意 选图搭子 的 <a href="./legal.html#terms">用户协议</a> 和 <a href="./legal.html#privacy">隐私政策</a>
-            </span>
-          </label>
-          <div class="error-text" id="agreement-error" hidden>请先勾选同意用户协议和隐私政策</div>
         </div>
 
         <div class="howto-card reveal">
@@ -769,7 +803,7 @@ function changelogPage() {
 
 const PAGES = {
   home: homePage,
-  product: productPage,
+  product: homePage,
   download: downloadPage,
   about: aboutPage,
   faq: faqPage,
@@ -854,12 +888,8 @@ function setupInteractions(page) {
     });
   });
 
-  if (page === 'home') {
+  if (page === 'home' || page === 'product') {
     setupHome();
-  }
-
-  if (page === 'download') {
-    setupDownload();
   }
 
   if (page === 'legal') {
@@ -935,58 +965,6 @@ function setupHome() {
   hero.addEventListener('mouseleave', () => {
     orbs.forEach((orb) => {
       orb.style.transform = '';
-    });
-  });
-}
-
-function setupDownload() {
-  const checkbox = document.getElementById('agreement-input');
-  const box = document.getElementById('agreement-box');
-  const error = document.getElementById('agreement-error');
-  const buttons = document.querySelectorAll('.download-action');
-
-  if (!checkbox || !box || !error) return;
-
-  let errorTimer = null;
-
-  const setError = (visible) => {
-    error.hidden = !visible;
-    box.classList.toggle('error', visible);
-    box.classList.toggle('checked', checkbox.checked && !visible);
-  };
-
-  const sync = () => {
-    box.classList.toggle('checked', checkbox.checked);
-    box.classList.remove('error');
-    if (!checkbox.checked) {
-      error.hidden = true;
-    }
-  };
-
-  checkbox.addEventListener('change', () => {
-    sync();
-    if (checkbox.checked) {
-      error.hidden = true;
-      if (errorTimer) {
-        window.clearTimeout(errorTimer);
-        errorTimer = null;
-      }
-    }
-  });
-
-  buttons.forEach((button) => {
-    button.addEventListener('click', () => {
-      if (!checkbox.checked) {
-        if (errorTimer) window.clearTimeout(errorTimer);
-        setError(true);
-        errorTimer = window.setTimeout(() => {
-          setError(false);
-        }, 2000);
-        return;
-      }
-
-      const platform = button.getAttribute('data-platform') || 'unknown';
-      console.log(`Downloading ${platform} version...`);
     });
   });
 }
