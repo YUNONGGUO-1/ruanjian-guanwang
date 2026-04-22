@@ -382,7 +382,6 @@ function productPage() {
             <div style="display:grid;gap:12px">
               <a class="btn btn-primary" href="./download.html">下载客户端 ${icon('arrow-right')}</a>
             </div>
-            <p style="text-align:center;margin-top:16px">网站仅提供软件下载与软件介绍。</p>
           </article>
 
           <article class="pricing-card soft reveal">
