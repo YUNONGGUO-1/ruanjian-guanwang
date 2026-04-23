@@ -5,7 +5,7 @@ const PAGE_LINKS = [
 ];
 
 const DOWNLOAD_URL = 'https://download.cullmate.com/cullmate-latest.dmg';
-const LOGO_SRC = './assets/logo.png?v=20260422-5';
+const LOGO_SRC = './assets/logo.png?v=20260423-1';
 
 function icon(name, extraClass = '') {
   return `<i class="icon ${extraClass}" data-lucide="${name}"></i>`;
