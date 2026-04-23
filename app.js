@@ -4,7 +4,8 @@ const PAGE_LINKS = [
   { key: 'download', label: '下载' },
 ];
 
-const DOWNLOAD_URL = 'https://download.cullmate.com/latest.dmg';
+const DOWNLOAD_URL = 'https://download.cullmate.com/cullmate-latest.dmg';
+const LOGO_SRC = './assets/logo.png?v=20260422-5';
 
 function icon(name, extraClass = '') {
   return `<i class="icon ${extraClass}" data-lucide="${name}"></i>`;
@@ -46,7 +47,7 @@ function renderHeader(activePage) {
     <nav class="site-nav" id="site-nav">
       <div class="container nav-inner">
         <a class="brand" href="./index.html" aria-label="返回首页">
-          <img class="brand-mark" src="./assets/logo.png" alt="选图搭子 Logo" />
+          <img class="brand-mark" src="${LOGO_SRC}" alt="选图搭子 Logo" />
           <span class="brand-text">选图搭子</span>
         </a>
 
@@ -78,7 +79,7 @@ function renderFooter() {
         <div class="footer-grid">
           <div>
             <div class="footer-brand">
-              <img class="brand-mark" src="./assets/logo.png" alt="选图搭子 Logo" />
+              <img class="brand-mark" src="${LOGO_SRC}" alt="选图搭子 Logo" />
               <span class="brand-text">选图搭子</span>
             </div>
             <p class="footer-desc">专为摄影师打造的智能选图搭子。利用 AI 技术，快速剔除废片、重复底片，让修图更高效。</p>
@@ -114,6 +115,7 @@ function renderFooter() {
           <p class="footer-copy">© ${year} 选图搭子. All rights reserved.</p>
           <div class="footer-meta">
             <a href="https://beian.miit.gov.cn/" target="_blank" rel="noreferrer">蜀ICP备2026016056号-1</a>
+            <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=51015602001718" target="_blank" rel="noreferrer">川公网安备51015602001718号</a>
           </div>
         </div>
       </div>
@@ -240,7 +242,7 @@ function homePage() {
           <h1 class="home-title">
             <span class="home-glow" aria-hidden="true"></span>
             <span class="title-text">
-              <span class="title-line">把选图，</span>
+              <span class="title-line">把选图</span>
               <span class="title-line">做成更优雅的事</span>
             </span>
           </h1>
